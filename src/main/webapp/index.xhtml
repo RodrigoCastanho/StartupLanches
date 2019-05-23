@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:e="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<meta charset="utf-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+	<h:outputScript name="jquery3.3.1.min.js" library="js" target="head"/>
+	<h:outputScript name="bootstrap.min.js" library="js" target="head"/>
+    <h:outputScript name="somatotal.js" library="js" target="head"/>
+    <h:outputScript name="pagamento.js" library="js" target="head"/>
+    
+    <h:outputStylesheet name="bootstrap.min.css" library="css" />
+    
+	<title>Cadápio Lanches</title>
+
+</h:head>
+<h:body style="background-color:#E8E8E8;">
+		
+	<div class="container">
+	   <img src="../imagens/bannerlanche.png" class="img-fluid" alt="Imagem responsiva"/>
+	    
+	    <nav class="navbar navbar-light nav justify-content-end nav flex-column flex-sm-row" style="background-color: #FFD700;">
+              <span class="navbar-brand mb-0 h1">
+              		<button type="button" class="btn btn-primary mx-2 flex-sm-fill" data-toggle="modal" data-target="#telaPedido">
+              			   Meu Pedido 	
+                    </button>    			
+	              	  <div class="modal fade" id="telaPedido" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+	                      <div class="modal-dialog" role="document">
+	    						<div class="modal-content">
+	      							<div class="modal-header">
+	        								<h5 class="modal-title" id="ModalLabel">Meu pedido</h5>
+	        									<button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+	         								  		 <span aria-hidden="true">&times;</span>
+	        									</button>
+	      							 </div>
+	      								<div class="modal-body">                         
+	      								                      Lanche ----------- Pedido -------------- Valor
+	      								                      
+	      								                      
+	      								                      <br/>
+	      								                      <br/>
+	      								  <h:panelGroup id="notadecompra">  
+	      								      <ui:repeat var="pedido" value="#{lanchesEscolha.pedido.entrySet().toArray()}">   
+	      								             <tr>	   					
+	      								                <td>#{pedido.key}-----------x:#{pedido.value}</td>
+	      								            	 <br/>  
+	      								             </tr>    		    
+	      								   		</ui:repeat>   
+	      								   		   <br/>           
+	      								      	      								                    
+	      								      <ui:repeat var="lanches" value="#{lanchesEscolha.listapedido.entrySet().toArray()}">
+	      								           
+		      								        <tr>
+		      								          <td>#{lanches.key}---------------------------------R$:#{lanches.value}</td>
+		      								          <br/>
+												  </tr>	      								
+	       									  </ui:repeat> 
+	       									  		<br/>
+	       									  		  Lanche Personalizado/Adicional
+	       									  		 <div id="ingrediente" class="border border-warning">
+	       									  		 
+	       									  		    <ui:repeat var="ingredientes" value="#{lanchePersonalizado.controleingred.entrySet().toArray()}">
+	      								                
+		      								                <tr>
+		      								                  <td>#{ingredientes.key}-------------------------R$:#{ingredientes.value}</td>
+		      								                  <br/>
+												           </tr>	      								
+	       									           </ui:repeat>  
+	       									  		 </div>	
+												     <br/>		
+	       									  		Valor Lanche R$:
+	      								           <div id="lanchepadrao"> <h:outputText value="#{lanchesEscolha.totalvalorlanche}"/> </div>
+	      								          
+	      								           Valor Lanche Personalizado/Adicional R$:
+	      								         <div id="lanchepersonalizado"> <h:outputText value="#{lanchePersonalizado.totalpromocao}"/> </div>
+	      								          
+	      								         Total a pagar R$:   
+	      								         <div id="totaltudo"> </div>
+	      								         
+	      								       <br/>
+		      								   Desc. Promoção light:
+		      								   <br/> 
+		      								   R$:<h:outputText value="#{lanchePersonalizado.plight}"/>
+		      								   <br/>
+		      								   Desc. Promoção muita carne:
+		      								   <br/> 
+		      								   R$:<h:outputText value="#{lanchePersonalizado.descontocarn}"/>
+		      								   <br/>
+		      								   Desc. Promoção muito Queijo:
+		      								   <br/> 
+		      								   R$:<h:outputText value="#{lanchePersonalizado.descontoqueij}"/>
+		      						    </h:panelGroup>  	 
+	      			        		 </div>
+	      			        		    
+	     									 <div class="modal-footer">
+	        									<button type="button" onClick="location.href=location.href" class="btn btn-secondary" data-dismiss="modal"> Cancelar</button>
+	       										<button type="button" id="concluirpedido" class="btn btn-primary" >Concluir Pedido</button>
+	      									</div>	
+	      											
+	   								 </div>
+	  							</div>
+						  </div>
+						  
+	              	 <!--onClick="window.open('montalanche.xhtml')-->	             		
+                    <button type="button" class="btn btn-primary mx-2 flex-sm-fill" onClick="window.open('ajuda.xhtml')"> Ajuda </button>                                           
+            </span>
+       </nav>
+       				       	       		
+		<div class="row">
+			<div class="col-sm">
+				<div class="card" style="width: 15rem;">
+					<img class="card-img-top" src="../imagens/xbacon.png" />
+					<div class="card-body">
+						<h5 class="card-title">X-Bacon</h5>
+						<p class="card-text">
+							<ul>
+								<li>Bacon</li>
+								<li>Hamburguer de carne</li>
+								<li>Queijo</li>
+								<p class="badge badge-warning">Preço R$ 6,50</p>								
+							</ul>
+						</p>
+
+						<h:form id="form1">
+							<span class="badge badge-warning" title="Quantidade">
+								<h:commandButton id="b1" value="Pedido" styleClass="btn btn-primary mx-1" title="Fazer pedido">
+								  <f:ajax execute="@form" onevent="autosoma" render="cont notadecompra" listener="#{lanchesEscolha.pedidoLanche('X-Bacon')}"/>	
+							    </h:commandButton>  	
+								<h:outputText id="cont" value="#{lanchesEscolha.cont}"/>
+							</span>
+								<h:commandButton id="bc1" value="Cancelar" styleClass="btn btn-secondary" title="Cancelar pedido">
+								  <f:ajax execute="@form" onevent="autosoma" render="cont notadecompra" listener="#{lanchesEscolha.cancelarLanche('X-Bacon')}"/>
+								</h:commandButton> 
+						</h:form>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="col-sm">
+					<div class="card" style="width: 15rem;">
+						<img class="card-img-top" src="../imagens/xburguer.png" />
+						<div class="card-body">
+							<h5 class="card-title">X-Burger</h5>
+							<p class="card-text">
+								<ul>
+									<li>Hamburguer de carne</li>
+									<li>Queijo</li>
+									<p class="badge badge-warning">Preço R$ 4,50</p>
+								</ul>
+							</p>
+							<h:form id="form2">
+								<span class="badge badge-warning" title="Quantidade">
+								     <h:commandButton id="b2" value="Pedido" styleClass="btn btn-primary mx-1" title="Fazer pedido"> 
+								       <f:ajax execute="@form" onevent="autosoma" render="cont2 notadecompra" listener="#{lanchesEscolha.pedidoLanche('X-Burger')}"/>
+								     </h:commandButton>
+								     
+								     <h:outputText id="cont2" value="#{lanchesEscolha.cont2}"/>
+							   </span>
+							   		<h:commandButton id="bc2" value="Cancelar" styleClass="btn btn-secondary" title="Cancelar pedido">
+								      <f:ajax execute="@form" onevent="autosoma" render="cont2 notadecompra" listener="#{lanchesEscolha.cancelarLanche('X-Burger')}"/>
+	                                </h:commandButton>							  
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="w-100"></div>
+			<div class="col">
+				<div class="col-sm">
+					<div class="card" style="width: 15rem;">
+						<img class="card-img-top" src="../imagens/xegg.png" />
+						<div class="card-body">
+							<h5 class="card-title">X-Egg</h5>
+							<p class="card-text">
+								<ul>
+									<li>Ovo</li>
+									<li>Hamburguer de carne</li>
+									<li>Queijo</li>
+									<p class="badge badge-warning">Preço R$ 5,30</p>
+								</ul>
+							</p>
+							<h:form id="form3">
+								<span class="badge badge-warning" title="Quantidade">
+								      <h:commandButton id="b3" value="Pedido" styleClass="btn btn-primary mx-1" title="Fazer pedido">
+								        <f:ajax execute="@form" onevent="autosoma" render="cont3 notadecompra" listener="#{lanchesEscolha.pedidoLanche('X-Egg')}"/>
+								      </h:commandButton> 
+								      
+								     <h:outputText id="cont3" value="#{lanchesEscolha.cont3}"/>
+							   </span>
+							   		 <h:commandButton id="bc3" value="Cancelar" styleClass="btn btn-secondary" title="Cancelar pedido">
+								       <f:ajax execute="@form" onevent="autosoma" render="cont3 notadecompra" listener="#{lanchesEscolha.cancelarLanche('X-Egg')}"/>
+								     </h:commandButton> 
+								     		        		
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="col-sm">
+					<div class="card" style="width: 15rem;">
+						<img class="card-img-top" src="../imagens/xeggbacon.png" />
+						<div class="card-body">
+							<h5 class="card-title">X-EggBacon</h5>
+							<p class="card-text">
+								<ul>
+									<li>Bacon</li>
+									<li>Ovo</li>
+									<li>Hamburguer de carne</li>
+									<li>Queijo</li>
+									<p class="badge badge-warning">Preço R$ 7,30</p>
+								</ul>
+							</p>
+							<h:form id="form4">
+									<span class="badge badge-warning" title="Quantidade">
+								        <h:commandButton id="b4" value="Pedido" styleClass="btn btn-primary mx-1" title="Fazer pedido"> 
+								         <f:ajax execute="@form" onevent="autosoma" render="cont4 notadecompra" listener="#{lanchesEscolha.pedidoLanche('X-EggBacon')}"/>
+								        </h:commandButton> 
+								        
+								       <h:outputText id="cont4" value="#{lanchesEscolha.cont4}"/>
+							       </span>
+										<h:commandButton id="bc4" value="Cancelar" styleClass="btn btn-secondary" title="Cancelar pedido">
+								         <f:ajax execute="@form" onevent="autosoma" render="cont4 notadecompra" listener="#{lanchesEscolha.cancelarLanche('X-EggBacon')}"/>	
+								        </h:commandButton>					
+							</h:form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br/>
+		<div class="row align-items-start">
+	              <div class="col">
+	                    <h5>Promoção Light</h5>
+	                 
+	                    <p><small>Se o lanche tem alface e não tem bacon, ganha 10% de desconto. </small></p>
+	             </div>
+	             <div class="col">
+	                   <h5>Promoção Muita Carne</h5> 
+	                   <p><small>A cada 3 porções de carne o cliente só paga 2. Se o lanche tiver 6 porções, o cliente pagará 4. Assim por diante...</small></p>
+	            </div>
+	               <div class="col">
+	                   <h5>Promoção Muito Queijo</h5>
+	                   <p><small>A cada 3 porções de queijo o cliente só paga 2. Se o lanche tiver 6 porções, o cliente pagará 4. Assim por diante... </small></p>
+	            </div>
+		      </div>        
+		        <br/> 
+		        		
+		          <h5>Escolhas os ingredientes que desejar</h5>		           
+			    
+			    <h:form id="form5">
+			    
+				   <h:commandButton id="bing" value="Bacon" styleClass="btn btn-primary mx-1" title="Bacon">
+				     <f:ajax execute="@form" onevent="autosoma" render="quantbc notadecompra" listener="#{lanchePersonalizado.montaLanche('Bacon')}"/>
+				   </h:commandButton> 
+						       
+				   <span class="badge badge-warning" title="Quantidade"><h:outputText id="quantbc" value="#{lanchePersonalizado.qbacon}"/></span>
+				   <p class="badge badge-warning">R$2,00</p>
+							    
+					<br/>	  		 
+		   		  <h:commandButton id="hing" value="Hamburguer de carne" styleClass="btn btn-primary mx-1" title="Hamburguer de carne">
+		            <f:ajax execute="@form" onevent="autosoma" render="quanham notadecompra" listener="#{lanchePersonalizado.montaLanche('Hamburguer de carne')}"/>
+				  </h:commandButton>
+				  <span class="badge badge-warning" title="Quantidade"><h:outputText id="quanham" value="#{lanchePersonalizado.qhamburguer}"/></span>
+				  <p class="badge badge-warning">R$3,00</p>
+				      
+			        <br/>
+			   
+		   		  <h:commandButton id="qing" value="Queijo" styleClass="btn btn-primary mx-1" title="Queijo">
+		           <f:ajax execute="@form" onevent="autosoma" render="quanqueij notadecompra" listener="#{lanchePersonalizado.montaLanche('Queijo')}"/>
+				  </h:commandButton>
+				  <span class="badge badge-warning" title="Quantidade"><h:outputText id="quanqueij" value="#{lanchePersonalizado.qqueijo}"/></span>
+				  <p class="badge badge-warning">R$1,50</p>
+			 
+			       <br/>
+			  
+		   		  <h:commandButton id="oing" value="Ovo" styleClass="btn btn-primary mx-1" title="Ovo">
+		            <f:ajax execute="@form" onevent="autosoma" render="quanovo notadecompra" listener="#{lanchePersonalizado.montaLanche('Ovo')}"/>
+				  </h:commandButton>
+				  <span class="badge badge-warning" title="Quantidade"><h:outputText id="quanovo" value="#{lanchePersonalizado.qovo}"/></span>
+				  <p class="badge badge-warning">R$0,80</p>
+			 
+				   <br/>
+			 
+		   		  <h:commandButton id="aing" value="Alface" styleClass="btn btn-primary mx-1" title="Alface">
+		             <f:ajax execute="@form" onevent="autosoma" render="quaalf notadecompra" listener="#{lanchePersonalizado.montaLanche('Alface')}"/>
+				  </h:commandButton>
+				  <span class="badge badge-warning" title="Quantidade"><h:outputText id="quaalf" value="#{lanchePersonalizado.qalface}"/></span>
+				  <p class="badge badge-warning">R$0,40</p>
+			
+			        <br/>
+			
+			       <h:commandButton id="caning" value="Cancelar ingredientes" styleClass="btn btn-secondary mx-1" title="Cancelar Pedido"> 
+			          <f:ajax execute="@form" onevent="autosoma" render="quantbc quanham quanqueij quanovo quaalf notadecompra" 
+			          listener="#{lanchePersonalizado.cancelar}"/>
+			       </h:commandButton>
+			     
+			  </h:form>
+			  
+			  <br/>
+			  <br/>
+			  <br/>
+		     <p class="badge badge-dark">Desenvolvido por Rodrigo Fernando Castanho</p>
+		  	       								               		  	                
+        </div>	
+</h:body>
+</html>
